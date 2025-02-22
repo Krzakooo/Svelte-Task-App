@@ -8,18 +8,18 @@
     }: {
         tasks:Task[];
         toggleDone: (task: Task) => void;
-        removeTask: (index: number) => void;
+        removeTask: (id: string) => void;
     } = $props();
 </script>
 
 <section>
-    {#each tasks as task, index}
+    {#each tasks as task}
       <article class="task">
         <label>
             <input type="checkbox" checked={task.done} onchange={() => toggleDone(task)} />
             <span class:done={task.done}>{task.title}</span>
         </label>
-        <button class="outline" onclick={() => removeTask(index)}>Remove</button>
+        <button class="outline" onclick={() => removeTask(task.id)}>Remove</button>
       </article>
     {/each}
 </section>
