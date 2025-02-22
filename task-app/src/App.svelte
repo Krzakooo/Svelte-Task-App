@@ -12,11 +12,15 @@
       done: false,
     });
   }
+
+  function toggleDone(task: Task) {
+    task.done = !task.done;
+  }
 </script>
 
 <main>
 <TasksForm {addTask}/>
-<TasksList {tasks}/>
+<TasksList {tasks} {toggleDone}/>
 
 </main>
 
