@@ -4,6 +4,11 @@
   import type { Task } from "./types";
 
   let tasks = $state<Task[]>([]);
+  let totalDone = $derived(
+    tasks.reduce(
+      (acc, task) => acc + (task.done ? 1 : 0), 0
+    )
+  );
 
   function addTask(newTask: string) {
     tasks.push({
@@ -20,6 +25,7 @@
 
 <main>
 <TasksForm {addTask}/>
+<p>{totalDone} / {tasks.length} Tasks completed</p>
 <TasksList {tasks} {toggleDone}/>
 
 </main>
