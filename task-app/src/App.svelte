@@ -1,6 +1,7 @@
 <script lang="ts">
   import TasksForm from "./lib/tasks-form.svelte";
   import TasksList from "./lib/tasks-list.svelte";
+  import {slide} from "svelte/transition";
   import type { Filter, Task } from "./types";
 
   let currentFilter = $state<Filter>("all");
@@ -40,6 +41,10 @@
   }
 </script>
 
+{#snippet filterButton(filter :Filter)}
+<button onclick={() => currentFilter = filter} class:contrast={currentFilter === filter} class="secondary filterButton">{filter}</button>
+{/snippet}
+
 <main>
 <TasksForm {addTask}/>
 <p>
@@ -51,10 +56,10 @@
 </p>
 
 {#if tasks.length}
-  <div class="button-container">
-    <button onclick={() => currentFilter = "all"} class:contrast={currentFilter === "all"} class="secondary">All</button>
-    <button onclick={() => currentFilter = "todo"} class:contrast={currentFilter === "todo"} class="secondary">Todo</button>
-    <button onclick={() => currentFilter = "done"} class:contrast={currentFilter === "done"} class="secondary">Done</button>
+  <div transition:slide class="button-container">
+    {@render filterButton("all")}
+    {@render filterButton("todo")}
+    {@render filterButton("done")}
   </div>
 {/if}
 <TasksList tasks = {filteredTasks} {toggleDone} {removeTask}/>
@@ -72,5 +77,9 @@
     justify-content: end;
     gap: 0.2rem;
     margin-bottom: 1rem;
+  }
+
+  .filterButton {
+    text-transform: capitalize;
   }
 </style>

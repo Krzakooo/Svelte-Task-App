@@ -1,4 +1,5 @@
 <script lang="ts">
+    import {fade} from "svelte/transition";
     import type { Task } from "../types";
 
     let {
@@ -14,7 +15,7 @@
 
 <section>
     {#each tasks as task}
-      <article class="task">
+      <article class="task" transition:fade>
         <label>
             <input type="checkbox" checked={task.done} onchange={() => toggleDone(task)} />
             <span class:done={task.done}>{task.title}</span>
