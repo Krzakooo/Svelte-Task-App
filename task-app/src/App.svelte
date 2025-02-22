@@ -21,12 +21,22 @@
   function toggleDone(task: Task) {
     task.done = !task.done;
   }
+
+  function removeTask(index: number) {
+    tasks.splice(index, 1);
+  }
 </script>
 
 <main>
 <TasksForm {addTask}/>
-<p>{totalDone} / {tasks.length} Tasks completed</p>
-<TasksList {tasks} {toggleDone}/>
+<p>
+  {#if tasks.length === 0}
+    All done!
+  {:else}
+    {totalDone} / {tasks.length} Tasks completed
+  {/if}
+</p>
+<TasksList {tasks} {toggleDone} {removeTask}/>
 
 </main>
 
