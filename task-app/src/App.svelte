@@ -19,8 +19,9 @@
         return tasks.filter(task => task.done);
       case "todo":
         return tasks.filter(task => !task.done);
+      default:
+        return tasks;
     }
-    return tasks;
   });
 
   function addTask(newTask: string) {
